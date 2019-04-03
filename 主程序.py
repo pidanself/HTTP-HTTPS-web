@@ -23,8 +23,10 @@ host = v.get()
 #SOCK_STREAM指定使用面向流的TCP协议
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-s.connect(host)
+s.connect((host,80))
 
+# 发送数据:
+s.send(b'GET / HTTP/1.1\r\nHost: '+host.encode(encoding="utf-8")+b'\r\nConnection: close\r\n\r\n')
 
 #接收数据
 buffer=[]
@@ -37,6 +39,6 @@ while True:
 
 data=b''.join(buffer)
 header, html = data.split(b'\r\n\r\n', 1)
-
+print(header.decode('utf-8'))
 with open('233.html', 'wb') as f:
     f.write(html)
