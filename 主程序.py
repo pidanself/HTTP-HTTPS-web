@@ -4,16 +4,25 @@ from tkinter import *
 import ssl
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(('zhihu.com', 443))
+s.connect(('news.baidu.com', 443))
 s = ssl.wrap_socket(s, keyfile=None, certfile=None, server_side=False, cert_reqs=ssl.CERT_NONE, ssl_version=ssl.PROTOCOL_SSLv23)
-s.sendall(b"GET / HTTP/1.1\r\nHost: github.com\r\nConnection: close\r\n\r\n")
 
+s.sendall(b"GET / HTTP/1.1\r\nHost: news.baidu.com\r\nConnection: close\r\n\r\n")
+
+#接收数据
+buffer=[]
 while True:
-    new = s.recv(4096)
-    if not new:
-      s.close()
-      break
-    print(new)
+    d=s.recv(1024)
+    if d:
+        buffer.append(d)
+    else:
+        break
+
+data=b''.join(buffer)
+header, html = data.split(b'\r\n\r\n', 1)
+print(header.decode('utf-8'))
+with open('233.html', 'wb') as f:
+    f.write(html)
 
 # import socket
 # import sys
