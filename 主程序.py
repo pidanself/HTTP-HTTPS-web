@@ -37,5 +37,6 @@ while True:
 
 data=b''.join(buffer)
 header, html = data.split(b'\r\n\r\n', 1)
+
 with open('233.html', 'wb') as f:
     f.write(html)
