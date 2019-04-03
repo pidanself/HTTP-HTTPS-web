@@ -1,6 +1,7 @@
 import socket
 import sys
 from tkinter import *
+import ssl
 
 root=Tk()
 aLable=Label(root,text="请输入URL")
