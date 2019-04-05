@@ -84,14 +84,28 @@ def iss(host):
     else:
         return False
 
+def ish(host):
+    if(host[0:4]=='http'):
+        return True
+    else:
+        return False
+
 #主函数
 def main():
     # 调用图形界面获得IP地址
+    #IP的输入格式有两种，
+    #http的为：http://www.baidu.com
+    #https的为：https://www.bj.lianjia.com
     host = graph()
     if(iss(host)):
+        host=host[12::]
         HTTPS(host)
-    else:
+    elif(ish(host)):
+        host=host[11::]
         HTTP(host)
+    else:
+        return
+
     display()
 
 if __name__ == '__main__':
