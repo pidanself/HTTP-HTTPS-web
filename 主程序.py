@@ -137,22 +137,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-#     # 接收数据
-#     buffer = []
-#     while True:
-#         d = s.recv(1024)
-#         if d:
-#             buffer.append(d)
-#         else:
-#             break
-#
-#     data = b''.join(buffer)
-#     header, html = data.split(b'\r\n\r\n', 1)
-#     print(header.decode('utf-8'))
-#     with open('web/index.html', 'wb') as f:
-#         f.write(html)
