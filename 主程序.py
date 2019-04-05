@@ -1,6 +1,8 @@
 import socket
 import ssl
 from tkinter import *
+from urllib import request
+import urllib
 
 #调用图形界面
 def graph():
@@ -67,6 +69,31 @@ def HTTPS(host):
     with open('web/index.html', 'wb') as f:
         f.write(html)
 
+"""
+使用GET在百度搜索引擎上查询
+此例演示如何生成GET串,并进行请求.
+"""
+def BDAPI(host):
+    url = "http://www.baidu.com/s"
+    search = [('w',host)]
+    getString = url + "?" + urllib.parse.urlencode(search)
+
+    req = urllib.request.Request(getString)
+    fd = urllib.request.urlopen(req)
+    baiduResponse=""
+    buffer=[]
+    while 1:
+        data= fd.read(1024)
+        if not len(data):
+            break
+        buffer.append(data)
+    data = b''.join(buffer)
+    header, html = data.split(b'\r\n\r\n', 1)
+    print(header.decode('utf-8'))
+    with open('web/index.html', 'wb') as f:
+        f.write(html)
+
+
 def display():
     # 调用库显示html
     import eel
@@ -104,9 +131,28 @@ def main():
         host=host[11::]
         HTTP(host)
     else:
-        return
+        BDAPI(host)
 
     display()
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+#     # 接收数据
+#     buffer = []
+#     while True:
+#         d = s.recv(1024)
+#         if d:
+#             buffer.append(d)
+#         else:
+#             break
+#
+#     data = b''.join(buffer)
+#     header, html = data.split(b'\r\n\r\n', 1)
+#     print(header.decode('utf-8'))
+#     with open('web/index.html', 'wb') as f:
+#         f.write(html)
