@@ -1,16 +1,12 @@
-import htmlparser
 import get
-
+import getpic
 
 
 
 def main():
-    host="http://www.ustb.edu.cn"
+    host="http://poj.org"
     get.gethtml(host)
-    with open('./web/index.html','r',encoding='utf-8') as f:
-        str=f.read()
-        htmlparser.parserhtml(str)
-    f.close()
+    getpic.getpic(host)
 
 if __name__ == '__main__':
     main()
